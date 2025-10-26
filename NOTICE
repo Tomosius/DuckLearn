@@ -1,0 +1,19 @@
+DuckLearn
+Copyright (c) 2025 Tomas Pecukevicius
+Licensed under the Apache License, Version 2.0 (see LICENSE file)
+
+---
+
+This product includes software developed by third parties:
+
+- DuckDB — Licensed under the MIT License
+  https://duckdb.org
+
+- Commitizen — Licensed under the MIT License
+  https://github.com/commitizen-tools/commitizen
+
+- pre-commit — Licensed under the MIT License
+  https://github.com/pre-commit/pre-commit
+
+Each third-party component is used under its own license terms.
+Full license texts for these components are available in their respective repositories.

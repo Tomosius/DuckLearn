@@ -1,14 +1,42 @@
 [project]
 name = "ducklearn"
 version = "0.1.0"
-description = "Add your description here"
+description = "DuckLearn — an open learning framework powered by DuckDB."
+authors = [
+    { name = "Tomas Pecukevicius", email = "contact@pecuk.dev" }
+]
+license = { text = "Apache-2.0" }
+readme = "README.md"
 requires-python = ">=3.11"
+keywords = ["duckdb", "machine-learning", "data", "education", "framework"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
 dependencies = [
-    "commitizen>=4.9.1",
     "duckdb>=1.4.1",
+    "commitizen>=4.9.1",
     "pre-commit>=4.3.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Tomosius/DuckLearn"
+Repository = "https://github.com/Tomosius/DuckLearn"
+Documentation = "https://github.com/Tomosius/DuckLearn/wiki"
+Issues = "https://github.com/Tomosius/DuckLearn/issues"
+
+# Optional: Entry point for CLI usage
+# [project.scripts]
+# ducklearn = "ducklearn.cli:main"
+
+# --------------------------------------------------------
+# Commitizen configuration (automated versioning & changelog)
+# --------------------------------------------------------
 [tool.commitizen]
 name = "cz_conventional_commits"
 tag_format = "v$version"
@@ -16,3 +44,15 @@ version_scheme = "pep440"
 version_provider = "uv"
 update_changelog_on_bump = true
 major_version_zero = true
+changelog_file = "CHANGELOG.md"
+
+# --------------------------------------------------------
+# pre-commit setup (Husky-equivalent for Python)
+# --------------------------------------------------------
+[tool.pre-commit]
+# Hooks are defined in .pre-commit-config.yaml
+
+[dependency-groups]
+dev = [
+    "pip-licenses>=5.5.0",
+]

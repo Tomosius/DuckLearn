@@ -239,3 +239,23 @@ code.script = "scripts:Code_Quality.CodeQuality.all()"
 test.script = "scripts:Tests.run()"
 test_full.script = "scripts:Tests.full()"
 test_html.script = "scripts:Tests.html()"
+
+
+# ---------------------
+# Run commands
+# ---------------------
+run_b.script = "scripts.Run_Build:run_backend"
+run_f.script = "scripts.Run_Build:run_frontend"
+run.script   = "scripts.Run_Build:run_both"
+
+# ---------------------
+# Build commands
+# ---------------------
+build_b.script = "scripts.Run_Build:build_backend"
+build_f.script = "scripts.Run_Build:build_frontend"
+build.script   = "scripts.Run_Build:build_both"
+
+# ---------------------
+# Build wheel + package
+# ---------------------
+package.script = "scripts.Run_Build:package"

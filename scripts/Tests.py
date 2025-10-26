@@ -20,7 +20,7 @@ class Tests:
                 '--cov=src',
                 '--cov-report=term-missing',
                 '--test-report=full',
-	            '--testmon-nocollect'
+                '--testmon-nocollect',
             ],
             check=True,
         )

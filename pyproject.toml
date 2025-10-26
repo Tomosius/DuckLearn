@@ -227,9 +227,10 @@ lint_py.script = "scripts:Code_Quality.Lint.python()"
 fmt_py.script = "scripts:Code_Quality.Format.python()"
 sort_py.script = "scripts:Code_Quality.Sort.python()"
 typecheck_py.script = "scripts:Code_Quality.TypeCheck.python()"
-code_py1.script = "scripts:Code_Quality.Python.basic()"
-code_py2.script = "scripts:Code_Quality.Python.normal()"
-code_py3.script = "scripts:Code_Quality.Python.full()"
+code_1.script = "scripts:Code_Quality.Python.basic()"
+code_2.script = "scripts:Code_Quality.Python.normal()"
+code_3.script = "scripts:Code_Quality.Python.full()"
+
 
 
 

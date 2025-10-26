@@ -55,6 +55,10 @@ classifiers = [
 dependencies = [
     "duckdb>=1.4.1",
     "fastapi>=0.120.0",
+    "orjson>=3.11.4",
+    "pathlib>=1.0.1",
+    "platformdirs>=4.5.0",
+    "pydantic>=2.12.3",
     "sqlglot>=27.28.1",
     "uvicorn>=0.38.0",
 ]
@@ -112,6 +116,7 @@ hooks = [
 test = [
     "pluggy>=1.6.0",
     "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
     "pytest-cov>=7.0.0",
     "pytest-html>=4.1.1",
     "pytest-rerunfailures>=16.1",
@@ -159,7 +164,10 @@ version_provider = "uv"         # read/write version from pyproject via uv
 update_changelog_on_bump = true # auto-update CHANGELOG.md on bump
 major_version_zero = true       # allow 0.x versions
 changelog_file = "CHANGELOG.md"
-
+version_files = [
+    "pyproject.toml:version",
+    "frontend/package.json:version"
+]
 
 # ------------------------------------------------------------
 # 🪝 Pre-commit

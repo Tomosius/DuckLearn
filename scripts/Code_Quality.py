@@ -241,7 +241,7 @@ class Docs:
                 BIN['pydocstyle'],
                 'src',
                 '--ignore',
-                'D100,D104',
+                'D100, D104, D203',
             ],
         )
         print('✅ Docstring style check complete.')
@@ -281,12 +281,15 @@ class Python:
 
     @staticmethod
     def normal() -> None:
-        """Run normal checks (basic + types)."""
+        """Run normal checks (basic + types + docstrings)."""
         print('🟡 Running NORMAL Python quality checks...\n')
         Sort.python()
         Format.python()
         Lint.python()
         TypeCheck.python()
+        Docs.docstrings()
+        Docs.complexity()
+
         print('\n✅ Normal Python checks complete.')
 
     @staticmethod

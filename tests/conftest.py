@@ -482,7 +482,7 @@ def pytest_runtest_makereport(item, call):
     if _extras is None:
         return
 
-    report.extra = getattr(report, 'extra', [])
+    report.extras = getattr(report, 'extra', [])
     repo_base = item.config.getoption('--repo-url-base') or ''
 
     # Link to test source
@@ -493,9 +493,9 @@ def pytest_runtest_makereport(item, call):
             url = f'{repo_base}/{rel.as_posix()}' + (
                 f'#L{test_lineno}' if test_lineno else ''
             )
-            report.extra.append(_extras.url(url, name='View test source'))
+            report.extras.append(_extras.url(url, name='View test source'))
         else:
-            report.extra.append(
+            report.extras.append(
                 _extras.text(f'Test: {rel}:{test_lineno or ""}')
             )
 
@@ -518,20 +518,20 @@ def pytest_runtest_makereport(item, call):
     if impl_guess and impl_guess.exists():
         rel_impl = impl_guess.resolve().relative_to(Path.cwd())
         if repo_base:
-            report.extra.append(
+            report.extras.append(
                 _extras.url(
                     f'{repo_base}/{rel_impl.as_posix()}',
                     name='View impl (guess)',
                 )
             )
         else:
-            report.extra.append(_extras.text(f'Impl (guess): {rel_impl}'))
+            report.extras.append(_extras.text(f'Impl (guess): {rel_impl}'))
 
     # Attach captured I/O if present
     if hasattr(report, 'capstdout') and report.capstdout:
-        report.extra.append(_extras.text(report.capstdout, name='stdout'))
+        report.extras.append(_extras.text(report.capstdout, name='stdout'))
     if hasattr(report, 'capstderr') and report.capstderr:
-        report.extra.append(_extras.text(report.capstderr, name='stderr'))
+        report.extras.append(_extras.text(report.capstderr, name='stderr'))
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:

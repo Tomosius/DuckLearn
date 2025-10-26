@@ -18,7 +18,7 @@
 # ------------------------------------------------------------
 [project]
 name = "ducklearn"
-version = "0.1.0"
+version = "0.2.0"
 description = "DuckLearn — an open learning framework powered by DuckDB."
 readme = "README.md"
 requires-python = ">=3.11"

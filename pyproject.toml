@@ -20,8 +20,6 @@ classifiers = [
 
 dependencies = [
     "duckdb>=1.4.1",
-    "commitizen>=4.9.1",
-    "pre-commit>=4.3.0",
 ]
 
 [project.urls]
@@ -54,5 +52,16 @@ changelog_file = "CHANGELOG.md"
 
 [dependency-groups]
 dev = [
+    "commitizen>=4.9.1",
     "pip-licenses>=5.5.0",
+    "pre-commit>=4.3.0",
+    "ruff>=0.14.2",
+]
+playground = [
+    "jupyterlab>=4.4.10",
+    "marimo>=0.17.2",
+    "scikit-learn>=1.7.2",
+]
+test = [
+    "pytest>=8.4.2",
 ]

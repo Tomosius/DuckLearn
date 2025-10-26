@@ -56,7 +56,7 @@ dependencies = [
     "duckdb>=1.4.1",
     "fastapi>=0.120.0",
     "sqlglot>=27.28.1",
-    "uvicorn[standard]>=0.38.0",
+    "uvicorn>=0.38.0",
 ]
 
 
@@ -124,9 +124,13 @@ test = [
 # ------------------------------------------------------------
 # Ruff handles linting, code formatting, and import sorting in one.
 lint = [
+    "bandit>=1.8.6",
     "mypy>=1.18.2",
     "pydantic>=2.12.3",
+    "pydocstyle>=6.3.0",
+    "radon>=6.0.1",
     "ruff>=0.7.4",
+    "safety>=3.6.2",
 ]
 
 # ------------------------------------------------------------
@@ -175,6 +179,7 @@ select = ["E", "F", "B", "I"]
 ignore = ["E501"]  # ignore long lines
 fixable = ["ALL"]
 
+
 [tool.ruff.format]
 indent-style = "space"
 quote-style = "single"
@@ -209,23 +214,23 @@ install_all.script = "scripts:Setup.install_all()" # install all dependencies fr
 # Updating
 update.script = "scripts:Setup.update()" # Update All dependencies across all groups
 
-# Linting
-lint_py.script = "scripts:Code_Quality.Lint.python()" # Just just Python
+# Python-only
+lint_py.script = "scripts:Code_Quality.Lint.python()"
+fmt_py.script = "scripts:Code_Quality.Format.python()"
+sort_py.script = "scripts:Code_Quality.Sort.python()"
+typecheck_py.script = "scripts:Code_Quality.TypeCheck.python()"
+code_py1.script = "scripts:Code_Quality.Python.basic()"
+code_py2.script = "scripts:Code_Quality.Python.normal()"
+code_py3.script = "scripts:Code_Quality.Python.full()"
 
-# Formating
-fmt_py.script = "scripts:Code_Quality.Format.python()" # Just Formatter just Python
 
-# Sort
 
-sort_py.script = "scripts:Code_Quality.Sort.python()" # Just Imports Sorter for Pyhon
-
-# TypeCheck
-typecheck_py.script = "scripts:Code_Quality.TypeCheck.python()" # Tests with mypy for types
-
-# Code_Quality_Inspect
-
-# Python
-code_py.script = "scripts:Code_Quality.Python.all()" # Ruff: Lint & Format & Sort Imports
+# All-languages aggregators
+lint.script = "scripts:Code_Quality.Lint.all()"
+fmt.script = "scripts:Code_Quality.Format.all()"
+sort.script = "scripts:Code_Quality.Sort.all()"
+typecheck.script = "scripts:Code_Quality.TypeCheck.all()"
+code.script = "scripts:Code_Quality.CodeQuality.all()"
 
 
 # Testing

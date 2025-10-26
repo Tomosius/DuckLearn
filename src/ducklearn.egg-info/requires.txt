@@ -1,0 +1,4 @@
+duckdb>=1.4.1
+fastapi>=0.120.0
+sqlglot>=27.28.1
+uvicorn[standard]>=0.38.0

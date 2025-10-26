@@ -92,6 +92,7 @@ Issues = "https://github.com/Tomosius/DuckLearn/issues"
 # Core dev group (you can leave this empty or use it for shared tools)
 dev = [
     "poethepoet>=0.37.0",
+    "rich>=14.2.0",
 ]
 
 # ------------------------------------------------------------
@@ -109,7 +110,13 @@ hooks = [
 # ------------------------------------------------------------
 # Tools used for running and managing tests.
 test = [
+    "pluggy>=1.6.0",
     "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "pytest-html>=4.1.1",
+    "pytest-rerunfailures>=16.1",
+    "pytest-testmon>=2.1.3",
+    "pytest-xdist>=3.8.0",
 ]
 
 # ------------------------------------------------------------
@@ -181,6 +188,11 @@ warn_unused_ignores = true
 warn_redundant_casts = true
 disallow_untyped_defs = true
 
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
 # ------------------------------------------------------------
 # 🧠 Poe the Poet — Task Runner
 # ------------------------------------------------------------
@@ -214,3 +226,11 @@ typecheck_py.script = "scripts:Code_Quality.TypeCheck.python()" # Tests with myp
 
 # Python
 code_py.script = "scripts:Code_Quality.Python.all()" # Ruff: Lint & Format & Sort Imports
+
+
+# Testing
+
+# Pyyhon
+test.script = "scripts:Tests.run()"
+test_full.script = "scripts:Tests.full()"
+test_html.script = "scripts:Tests.html()"

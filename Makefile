@@ -53,9 +53,23 @@ help:
 # ================================================================
 .PHONY: setup
 setup:
-	@echo "🔧 Installing pre-commit Git hooks..."
+	@echo "🔧 Setting up DuckLearn development environment..."
+	@echo ""
+	@echo "📦 Installing project dependencies (using uv)..."
+	uv sync
+	@echo ""
+	@echo "🧩 Installing pre-commit Git hooks..."
 	uv run pre-commit install --hook-type commit-msg
-	@echo "✅ Hooks installed successfully."
+	@echo ""
+	@echo "🧾 Generating initial THIRD_PARTY_LICENSES.md..."
+	uv run pip-licenses --format=markdown --with-urls --output-file THIRD_PARTY_LICENSES.md
+	@echo ""
+	@echo "✅ Setup complete! You’re ready to start developing DuckLearn."
+	@echo ""
+	@echo "💡 Next steps:"
+	@echo "   - make hooks       → Run code checks manually"
+	@echo "   - make bump        → Bump version & changelog"
+	@echo "   - make licenses    → Refresh dependency license list"
 
 # ================================================================
 # 🧾 Licensing: auto-generate dependency license summary

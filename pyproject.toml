@@ -1,14 +1,42 @@
+# ============================================================
+# 🦆 DuckLearn — Open Learning Framework powered by DuckDB
+# ============================================================
+# This file defines the complete project configuration:
+#  - Metadata (name, version, description, authors)
+#  - Runtime dependencies (libraries required for the app)
+#  - Development dependency groups (tools, testing, playground)
+#  - Tool configurations (Ruff, Commitizen, pre-commit)
+#
+# Notes:
+# - Uses `uv` for dependency & environment management
+# - Supports grouped dependencies for modular local installs
+# ============================================================
+
+
+# ------------------------------------------------------------
+# 📦 Project Metadata
+# ------------------------------------------------------------
 [project]
 name = "ducklearn"
 version = "0.1.0"
 description = "DuckLearn — an open learning framework powered by DuckDB."
+readme = "README.md"
+requires-python = ">=3.11"
+
 authors = [
     { name = "Tomas Pecukevicius", email = "contact@pecuk.dev" }
 ]
+
 license = { text = "Apache-2.0" }
-readme = "README.md"
-requires-python = ">=3.11"
-keywords = ["duckdb", "machine-learning", "data", "education", "framework"]
+
+keywords = [
+    "duckdb",
+    "machine-learning",
+    "data",
+    "education",
+    "framework",
+]
+
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -18,50 +46,147 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+
+# ------------------------------------------------------------
+# ⚙️ Runtime Dependencies
+# ------------------------------------------------------------
+# These are packages required to RUN DuckLearn (not dev tools).
+# They are installed when users run `uv sync --no-dev`.
 dependencies = [
     "duckdb>=1.4.1",
+    "fastapi>=0.120.0",
+    "sqlglot>=27.28.1",
+    "uvicorn[standard]>=0.38.0",
 ]
 
+
+# ------------------------------------------------------------
+# 🔗 Project Links (used by PyPI, docs, and metadata)
+# ------------------------------------------------------------
 [project.urls]
 Homepage = "https://github.com/Tomosius/DuckLearn"
 Repository = "https://github.com/Tomosius/DuckLearn"
 Documentation = "https://github.com/Tomosius/DuckLearn/wiki"
 Issues = "https://github.com/Tomosius/DuckLearn/issues"
 
-# Optional: Entry point for CLI usage
+
+# ------------------------------------------------------------
+# 🚀 CLI Entry Point (optional)
+# ------------------------------------------------------------
+# Uncomment and adapt if you plan to expose a CLI tool.
 # [project.scripts]
 # ducklearn = "ducklearn.cli:main"
 
-# --------------------------------------------------------
-# Commitizen configuration (automated versioning & changelog)
-# --------------------------------------------------------
-[tool.commitizen]
-name = "cz_conventional_commits"
-tag_format = "v$version"
-version_scheme = "pep440"
-version_provider = "uv"
-update_changelog_on_bump = true
-major_version_zero = true
-changelog_file = "CHANGELOG.md"
 
-# --------------------------------------------------------
-# pre-commit setup (Husky-equivalent for Python)
-# --------------------------------------------------------
-[tool.pre-commit]
-# Hooks are defined in .pre-commit-config.yaml
+# ============================================================
+# 🧩 Development Dependency Groups
+# ============================================================
+# These groups let you install only what you need:
+#   uv sync --group lint --group hooks --group test
+# or everything:
+#   uv sync --all-groups
+# ============================================================
 
 [dependency-groups]
+
+# Core dev group (you can leave this empty or use it for shared tools)
 dev = [
-    "commitizen>=4.9.1",
-    "pip-licenses>=5.5.0",
-    "pre-commit>=4.3.0",
-    "ruff>=0.14.2",
+    "poethepoet>=0.37.0",
 ]
+
+# ------------------------------------------------------------
+# 🪝 Git / Workflow Tools
+# ------------------------------------------------------------
+# Used for commit conventions, changelog automation, and hooks.
+hooks = [
+    "commitizen>=4.9.1",      # conventional commits & changelog
+    "pip-licenses>=5.5.0",    # generate THIRD_PARTY_LICENSES.md
+    "pre-commit>=4.3.0",      # manage pre-commit hooks
+]
+
+# ------------------------------------------------------------
+# 🧪 Testing Frameworks
+# ------------------------------------------------------------
+# Tools used for running and managing tests.
+test = [
+    "pytest>=8.4.2",
+]
+
+# ------------------------------------------------------------
+# 🧹 Linting, Formatting, Import Sorting
+# ------------------------------------------------------------
+# Ruff handles linting, code formatting, and import sorting in one.
+lint = [
+    "ruff>=0.7.4",
+]
+
+# ------------------------------------------------------------
+# 🧠 Playground / Experimentation
+# ------------------------------------------------------------
+# Optional libraries for local exploration, notebooks, and ML demos.
 playground = [
     "jupyterlab>=4.4.10",
     "marimo>=0.17.2",
     "scikit-learn>=1.7.2",
 ]
-test = [
-    "pytest>=8.4.2",
-]
+
+
+# ============================================================
+# 🧾 Tool Configurations
+# ============================================================
+
+# ------------------------------------------------------------
+# 🪄 Commitizen — Conventional Commits & Version Bumping
+# ------------------------------------------------------------
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+version_scheme = "pep440"
+version_provider = "uv"         # read/write version from pyproject via uv
+update_changelog_on_bump = true # auto-update CHANGELOG.md on bump
+major_version_zero = true       # allow 0.x versions
+changelog_file = "CHANGELOG.md"
+
+
+# ------------------------------------------------------------
+# 🪝 Pre-commit
+# ------------------------------------------------------------
+# Hooks are defined externally in `.pre-commit-config.yaml`
+[tool.pre-commit]
+
+
+# ------------------------------------------------------------
+# 🧹 Ruff — Linting, Formatting, Import Sorting
+# ------------------------------------------------------------
+# Ruff replaces black, flake8, pyupgrade, bugbear, and isort.
+[tool.ruff]
+line-length = 79            # consistent with PEP8 style
+target-version = "py311"    # match supported Python versions
+src = ["src", "tests"]      # project code roots
+
+[tool.ruff.lint]
+# E,F = base rules | I = import sorting | B = bugbear | UP = pyupgrade
+select = ["E", "F", "I", "B", "UP"]
+ignore = []                 # list codes to ignore if needed
+fixable = ["ALL"]           # allow auto-fixes
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "single"
+docstring-code-format = true  # format code snippets in docstrings
+
+# ------------------------------------------------------------
+# 🧠 Poe the Poet — Task Runner
+# ------------------------------------------------------------
+
+[tool.poe.tasks]
+
+# Licenses
+licenses.script = "scripts:Licenses.generate()"
+
+# Setup
+install.script = "scripts:Setup.install()" # install just dependencies
+install_all.script = "scripts:Setup.install_all()" # install all dependencies from all Groups, setup Hooks and generate Licenses
+
+# Updating
+update.script = "scripts:Setup.update()" # Update All dependencies across all groups

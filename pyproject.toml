@@ -117,6 +117,8 @@ test = [
 # ------------------------------------------------------------
 # Ruff handles linting, code formatting, and import sorting in one.
 lint = [
+    "mypy>=1.18.2",
+    "pydantic>=2.12.3",
     "ruff>=0.7.4",
 ]
 
@@ -155,25 +157,29 @@ changelog_file = "CHANGELOG.md"
 [tool.pre-commit]
 
 
-# ------------------------------------------------------------
-# 🧹 Ruff — Linting, Formatting, Import Sorting
-# ------------------------------------------------------------
-# Ruff replaces black, flake8, pyupgrade, bugbear, and isort.
 [tool.ruff]
-line-length = 79            # consistent with PEP8 style
-target-version = "py311"    # match supported Python versions
-src = ["src", "tests"]      # project code roots
+line-length = 79
+target-version = "py311"
+extend-exclude = ["node_modules", "dist"]
+src = ["src", "tests", "scripts"]
 
 [tool.ruff.lint]
-# E,F = base rules | I = import sorting | B = bugbear | UP = pyupgrade
-select = ["E", "F", "I", "B", "UP"]
-ignore = []                 # list codes to ignore if needed
-fixable = ["ALL"]           # allow auto-fixes
+select = ["E", "F", "B", "I"]
+ignore = ["E501"]  # ignore long lines
+fixable = ["ALL"]
 
 [tool.ruff.format]
 indent-style = "space"
 quote-style = "single"
-docstring-code-format = true  # format code snippets in docstrings
+skip-magic-trailing-comma = false
+
+[tool.mypy]
+python_version = "3.11"
+plugins = ["pydantic.mypy"]
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
 
 # ------------------------------------------------------------
 # 🧠 Poe the Poet — Task Runner
@@ -190,3 +196,21 @@ install_all.script = "scripts:Setup.install_all()" # install all dependencies fr
 
 # Updating
 update.script = "scripts:Setup.update()" # Update All dependencies across all groups
+
+# Linting
+lint_py.script = "scripts:Code_Quality.Lint.python()" # Just just Python
+
+# Formating
+fmt_py.script = "scripts:Code_Quality.Format.python()" # Just Formatter just Python
+
+# Sort
+
+sort_py.script = "scripts:Code_Quality.Sort.python()" # Just Imports Sorter for Pyhon
+
+# TypeCheck
+typecheck_py.script = "scripts:Code_Quality.TypeCheck.python()" # Tests with mypy for types
+
+# Code_Quality_Inspect
+
+# Python
+code_py.script = "scripts:Code_Quality.Python.all()" # Ruff: Lint & Format & Sort Imports
